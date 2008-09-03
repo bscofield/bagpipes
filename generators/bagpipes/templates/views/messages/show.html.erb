@@ -1,0 +1,39 @@
+<h1>
+  <span>
+    <%= link_to h(@topic.title), @topic %> &gt;
+    <% if @message.parent %>
+      <%= link_to h(@message.parent.title), topic_message_path(@topic, @message.parent) %> &gt;
+    <% end %>
+  </span>
+  <%= h(@message.title) %>
+</h1>
+
+<%= simple_format(h(@message.content)) %>
+
+<% unless @message.parent %>
+  <% content_tag :p, link_to('Add a reply', new_reply_path(@topic, @message)) if logged_in? && current_user.member %>
+
+  <table id="replies" cellspacing="0">
+    <tr>
+      <th>Replies</th>
+      <th>By</th>
+      <th>Created</th>
+    </tr>
+    <% @message.children.by_recency.each_with_index do |message, i| %>
+      <tr class="<%= i%2 == 1 ? 'even' : 'odd' %>">
+        <td>
+          <%= link_to h(message.title), topic_message_path(@topic, message) %>
+          <%= simple_format(h(message.content)) %>
+        </td>
+        <td>
+          <%= h(message.member.name) %>
+        </td>
+        <td class="date-col">
+          <span title="<%= message.created_at.strftime('%d %b %Y %H:%M %p %Z')%>">
+            <%= time_ago_in_words(message.created_at) %> ago
+          </span>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

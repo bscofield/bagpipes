@@ -1,0 +1,84 @@
+body {
+  font-family: sans-serif;
+  font-size: 85%;
+  line-height: 150%;
+  margin: 0 20px;
+  padding: 0;
+}
+body * {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+a {
+  color: #f60;
+}
+h1 {
+  margin: .75em 0 .25em;
+}
+h1 span {
+  display: block;
+  font-size: .5em;
+  margin-bottom: .5em;
+}
+
+table {
+  border: 1px solid #ccc;
+  border-width: 1px 0;
+  margin: 1em 0;
+  width: 100%;
+}
+th {
+  background-color: #eee;
+}
+th, td {
+  padding: 3px 5px;
+}
+tr.even td {
+  background-color: #fff9e0;
+}
+td.date-col, td.counter {
+  text-align: center;
+}
+td p {
+  color: #999;
+  font-style: italic;
+  margin-left: 1em;
+}
+#replies td p {
+  color: black;
+  font-style: normal;
+}
+form div {
+  margin-top: 1em;
+}
+label {
+  display: block;
+  font-weight: bold;
+}
+input, textarea {
+  border: 1px solid #ccc;
+  font-size: 1em;
+  padding: 3px;
+  width: 50%;
+}
+textarea {
+  height: 10em;
+}
+button {
+  border: 1px solid #ccc;
+  padding: .25em 1em;
+}
+
+p.no-description {
+  color: #999;
+  font-style: italic;
+}
+
+
+/** Fix for Rails default error styles **/
+div.fieldWithErrors {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}

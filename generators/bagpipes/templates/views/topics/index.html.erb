@@ -1,0 +1,26 @@
+<h1>Topics</h1>
+
+<% content_tag :p, link_to('Add a topic', new_topic_path) if logged_in? && current_user.member && current_user.member.administrator? %>
+
+<table cellspacing="0">
+  <tr>
+    <th>Topic</th>
+    <th># Messages</th>
+    <th>Last Comment</th>
+  </tr>
+  <% @topics.each_with_index do |topic, i| %>
+    <tr class="<%= i%2 == 1 ? 'even' : 'odd' %>">
+      <td>
+        <%= link_to h(topic.title), topic %>
+      </td>
+      <td class="counter">
+        <%= topic.messages.children_of(nil).count %>
+      </td>
+      <td class="date-col">
+        <span title="<%= topic.last_message.created_at.strftime('%d %b %Y %H:%M %p %Z')%>">
+          <%= time_ago_in_words(topic.last_message.created_at) %> ago
+        </span>
+      </td>
+    </tr>
+  <% end %>
+</table>

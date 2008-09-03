@@ -1,0 +1,22 @@
+Bagpipes
+========
+
+Introduction goes here.
+
+
+Example
+=======
+
+Example goes here.
+
+
+Routes
+======
+Please add these to your routes file.
+
+map.resources :topics, :has_many => [:messages]  
+map.new_reply 'topics/:topic_id/parent/:parent_id', :controller => 'messages', :action => 'new'
+
+
+
+Copyright (c) 2008 Ben Scofield of Viget Labs, released under the MIT license

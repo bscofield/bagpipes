@@ -1,0 +1,33 @@
+<h1><%= h @topic.title %></h1>
+
+<%= @topic.description.blank? ? content_tag(:p, 'No description given', :class => 'no-description') : simple_format(h(@topic.description)) %>
+
+<% content_tag :p, link_to('Add a message', new_topic_message_path(@topic)) if logged_in? && current_user.member %>
+
+<table cellspacing="0">
+  <tr>
+    <th>Messages</th>
+    <th>By</th>
+    <th># Replies</th>
+    <th>Last Reply</th>
+  </tr>
+  <% @topic.messages.children_of(nil).by_recency.each_with_index do |message, i| %>
+    <tr class="<%= i%2 == 1 ? 'even' : 'odd' %>">
+      <td>
+        <%= link_to h(message.title), topic_message_path(@topic, message) %>
+        <%= simple_format(truncate(h(message.content), 100)) %>
+      </td>
+      <td>
+        <%= h(message.member.name) %>
+      </td>
+      <td class="counter">
+        <%= message.children.count %>
+      </td>
+      <td class="date-col">
+        <span title="<%= message.last_reply.created_at.strftime('%d %b %Y %H:%M %p %Z')%>">
+          <%= time_ago_in_words(message.last_reply.created_at) %> ago
+        </span>
+      </td>
+    </tr>
+  <% end %>
+</table>
