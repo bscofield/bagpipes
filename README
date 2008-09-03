@@ -1,21 +1,25 @@
 Bagpipes
 ========
 
-Introduction goes here.
-
+Bagpipes is a resourceful plugin, meaning that it provides a bundled set of resources (ala REST) for a Rails application. In particular, installing Bagpipes 
 
 Example
 =======
 
-Example goes here.
+rake bagpipes:install
 
 
-Routes
-======
-Please add these to your routes file.
+Integration
+===========
+You'll need some sort of authentication scheme that provides the following hooks in the controller:
+  logged_in?
+  current_user
 
-map.resources :topics, :has_many => [:messages]  
-map.new_reply 'topics/:topic_id/parent/:parent_id', :controller => 'messages', :action => 'new'
+The easiest way to take care of this is to install the restful authentication plugin.
+
+You'll also need to define a new association in your user (or account or whatever) model, by adding this line:
+
+has_one :member, :as => :user, :dependent => :destroy
 
 
 
