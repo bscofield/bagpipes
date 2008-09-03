@@ -39,10 +39,16 @@ class BagpipesGenerator < Rails::Generator::Base
       sentinel = 'ActionController::Routing::Routes.draw do |map|'
 
       gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
-        "#{match}\n  map.resources :topics, :has_many => [:messages]\nmap.new_reply 'topics/:topic_id/parent/:parent_id', :controller => 'messages', :action => 'new'\n"
+        "#{match}\n  map.resources :topics, :has_many => [:messages]\n  map.new_reply 'topics/:topic_id/parent/:parent_id', :controller => 'messages', :action => 'new'\n"
       end
       
       m.readme '../../../README'
     end
+  end
+
+  def gsub_file(relative_destination, regexp, *args, &block)
+    path = destination_path(relative_destination)
+    content = File.read(path).gsub(regexp, *args, &block)
+    File.open(path, 'wb') { |file| file.write(content) }
   end
 end
