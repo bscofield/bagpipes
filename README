@@ -3,10 +3,12 @@ Bagpipes
 
 Bagpipes is a resourceful plugin, meaning that it provides a bundled set of resources (ala REST) for a Rails application. In particular, installing Bagpipes gives you access to the resources required for basic forum functions—topics, messages, and members.
 
-At present, the member management functionality is not present. Members can be added from the console like this:
+At present, member management is ... minimal. You'll have to add the first administrator from the console, like this:
   
   > u = User.find(1)
   > u.create_member :name => "Name", :administrator => true
+  
+After that, you can log in and go to /members to add more.
   
 Only administrators can create topics, and only members can create messages. Anyone can view the forum, however.
 

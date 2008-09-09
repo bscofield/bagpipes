@@ -3,8 +3,8 @@ require 'test_helper'
 class MessagesControllerTest < ActionController::TestCase
   def setup
     login_as :quentin
-    user = users(:quentin)
-    user.create_member :name => 'Member'
+    @user = users(:quentin)
+    @user.create_member :name => 'Member'
     @topic = Topic.create! :title => "Test Topic"
   end
   
@@ -14,7 +14,7 @@ class MessagesControllerTest < ActionController::TestCase
   end
   
   test "show should render" do
-    @message = @topic.messages.create :title => 'Test Message', :content => 'test content'
+    @message = @topic.messages.create :title => 'Test Message', :content => 'test content', :member => @user.member
     get :show, :topic_id => @topic.id, :id => @message.id
     assert_template 'show'
   end
@@ -61,7 +61,7 @@ class MessagesControllerTest < ActionController::TestCase
   end
   
   test "create reply should redirect elsewhere" do
-    m = @topic.messages.create! :title => 'Test Message', :content => 'Test content for message'
+    m = @topic.messages.create! :title => 'Test Message', :content => 'Test content for message', :member => @user.member
     post :create, :topic_id => @topic.id, :message => {
       :title => 'Test Reply',
       :content => 'Reply to this',
