@@ -9,6 +9,7 @@ module Bagpipes
         end
       end
 
+      # TODO: optionally, paginate
       def index
         @topics = Topic.by_title.all
       end

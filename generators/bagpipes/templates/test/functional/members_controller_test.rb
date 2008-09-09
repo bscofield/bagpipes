@@ -29,7 +29,7 @@ class MembersControllerTest < ActionController::TestCase
 
   test "good post should redirect" do
     post :create, good_params
-    assert_redirected_to topics_path
+    assert_redirected_to members_path
   end
 
   test "good post should set flash" do

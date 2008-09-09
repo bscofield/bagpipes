@@ -10,6 +10,9 @@ module Bagpipes
         end
       end
 
+      # TODO: add index action for showing all messages in a topic
+      # TODO: provide modular search for messages via index action
+
       def new
         @parent = @topic.messages.find_by_id(params[:parent_id])
         parent_params = @parent ? {
@@ -20,6 +23,7 @@ module Bagpipes
         @message = @topic.messages.build(parent_params)
       end
 
+      # TODO: optionally, paginate replies
       def show
         @message = @topic.messages.find(params[:id])
       rescue ActiveRecord::RecordNotFound
