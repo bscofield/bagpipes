@@ -1,6 +1,6 @@
 <h1>Topics</h1>
 
-<% content_tag :p, link_to('Add a topic', new_topic_path) if logged_in? && current_user.member && current_user.member.administrator? %>
+<%= content_tag :p, link_to('Add a topic', new_topic_path) if logged_in? && current_user.member && current_user.member.administrator? %>
 
 <table cellspacing="0">
   <tr>

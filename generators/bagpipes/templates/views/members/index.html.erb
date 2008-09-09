@@ -1,0 +1,22 @@
+<h1>Members</h1>
+
+<% content_tag :p, link_to('Add a member', new_member_path) %>
+
+<table cellspacing="0">
+  <tr>
+    <th>Member</th>
+    <th>Created</th>
+  </tr>
+  <% @members.each_with_index do |member, i| %>
+    <tr class="<%= i%2 == 1 ? 'even' : 'odd' %>">
+      <td>
+        <%= h member.name %>
+      </td>
+      <td class="date-col">
+        <span title="<%= member.created_at.strftime('%d %b %Y %H:%M %p %Z')%>">
+          <%= time_ago_in_words(member.created_at) %> ago
+        </span>
+      </td>
+    </tr>
+  <% end %>
+</table>

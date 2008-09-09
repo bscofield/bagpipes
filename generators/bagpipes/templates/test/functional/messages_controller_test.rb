@@ -3,6 +3,8 @@ require 'test_helper'
 class MessagesControllerTest < ActionController::TestCase
   def setup
     login_as :quentin
+    user = users(:quentin)
+    user.create_member :name => 'Member'
     @topic = Topic.create! :title => "Test Topic"
   end
   

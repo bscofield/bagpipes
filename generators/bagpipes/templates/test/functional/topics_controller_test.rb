@@ -3,7 +3,7 @@ require 'test_helper'
 class TopicsControllerTest < ActionController::TestCase
   def setup
     user = users(:quentin)
-    user.create_member :administrator => true
+    user.create_member :administrator => true, :name => 'Admin'
     login_as :quentin
   end
   

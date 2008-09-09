@@ -7,7 +7,6 @@ class BagpipesGenerator < Rails::Generator::Base
       m.class_collisions "TopicsController", "MembersController", "MessagesController"
 
       Dir.chdir(template_dir) do
-        
         # handle models, controllers, helpers, and views
         %w(models helpers controllers views).each do |area|
           m.directory(File.join('app', area))
@@ -25,6 +24,7 @@ class BagpipesGenerator < Rails::Generator::Base
         end
       end
             
+      m.directory 'public/stylesheets'
       m.file('bagpipes.css', 'public/stylesheets/bagpipes.css')
 
       # Handle migrations
@@ -39,7 +39,7 @@ class BagpipesGenerator < Rails::Generator::Base
       sentinel = 'ActionController::Routing::Routes.draw do |map|'
 
       gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
-        "#{match}\n  map.resources :topics, :has_many => [:messages]\n  map.new_reply 'topics/:topic_id/parent/:parent_id', :controller => 'messages', :action => 'new'\n"
+        "#{match}\n  map.resources :members\n  map.resources :topics, :has_many => [:messages]\n  map.new_reply 'topics/:topic_id/parent/:parent_id', :controller => 'messages', :action => 'new'\n"
       end
       
       m.readme '../../../README'

@@ -30,6 +30,6 @@ You'll also need to define a new association in your user (or account or whateve
 
 has_one :member, :as => :user, :dependent => :destroy
 
-
+Finally, you'll need to update the user_email= method in the Member model so that it returns a valid user/account/whatever model when given an email address.
 
 Copyright (c) 2008 Ben Scofield of Viget Labs, released under the MIT license

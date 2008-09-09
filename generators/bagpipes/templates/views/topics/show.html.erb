@@ -2,7 +2,7 @@
 
 <%= @topic.description.blank? ? content_tag(:p, 'No description given', :class => 'no-description') : simple_format(h(@topic.description)) %>
 
-<% content_tag :p, link_to('Add a message', new_topic_message_path(@topic)) if logged_in? && current_user.member %>
+<%= content_tag :p, link_to('Add a message', new_topic_message_path(@topic)) if logged_in? && current_user.member %>
 
 <table cellspacing="0">
   <tr>

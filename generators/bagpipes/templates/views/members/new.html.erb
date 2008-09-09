@@ -1,0 +1,24 @@
+<h1>New Member</h1>
+
+<p><%= link_to 'Back to Members', topics_path %></p>
+
+<% form_for @member do |f| %>
+  <div>
+    <%= label_tag 'User Email Address' %>
+    <%= f.text_field :user_email %>
+  </div>
+  
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  
+  <div>
+    <%= f.label :adminstrator %>
+    <%= f.check_box :adminstrator %>
+  </div>
+  
+  <div>
+    <%= content_tag :button, 'Create', :type => 'submit' %>
+  </div>
+<% end %>
