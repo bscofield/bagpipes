@@ -27,6 +27,22 @@ class BagpipesGenerator < Rails::Generator::Base
       m.directory 'public/stylesheets'
       m.file('bagpipes.css', 'public/stylesheets/bagpipes.css')
 
+      # insert routes
+      sentinel = 'ActionController::Routing::Routes.draw do |map|'
+      gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
+        "#{match}\n  map.resources :members\n  map.resources :topics, :has_many => [:messages]\n  map.new_reply 'topics/:topic_id/parent/:parent_id', :controller => 'messages', :action => 'new'\n"
+      end
+      
+      # insert member association
+      print 'What is the name of your user class? [User] '
+      user_model = STDIN.gets.chomp
+      user_model = 'User' if user_model == ''
+      
+      sentinel = "class #{user_model} < ActiveRecord::Base"
+      gsub_file "app/models/#{user_model.downcase}.rb", /(#{Regexp.escape(sentinel)})/mi do |match|
+        "#{match}\n  has_one :member, :dependent => :destroy, :as => :user\n"
+      end
+      
       # Handle migrations
       Dir.glob(File.join(template_dir, 'migrate', '*')).each do |file|
         m.migration_template(
@@ -36,12 +52,6 @@ class BagpipesGenerator < Rails::Generator::Base
         )
       end
 
-      sentinel = 'ActionController::Routing::Routes.draw do |map|'
-
-      gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
-        "#{match}\n  map.resources :members\n  map.resources :topics, :has_many => [:messages]\n  map.new_reply 'topics/:topic_id/parent/:parent_id', :controller => 'messages', :action => 'new'\n"
-      end
-      
       m.readme '../../../README'
     end
   end
