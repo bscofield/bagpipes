@@ -1,6 +1,6 @@
 <h1>New Message in <%= h @topic.title %></h1>
 
-<p><%= link_to 'Back to Messages', @topic %></p>
+<p><%= link_to 'Back to Messages', topic_messages_path(@topic) %></p>
 
 <% form_for @message, :url => topic_messages_path(@topic) do |f| %>
   <%= f.hidden_field :parent_id %>

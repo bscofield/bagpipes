@@ -4,14 +4,14 @@ module Bagpipes
       def self.included(base)
         base.class_eval do
           before_filter :require_topic
-          before_filter :require_member_login, :except => :show
+          before_filter :require_member_login, :except => [:show, :index]
 
           layout 'bagpipes'
         end
       end
 
-      # TODO: add index action for showing all messages in a topic
       # TODO: provide modular search for messages via index action
+      def index; end
 
       def new
         @parent = @topic.messages.find_by_id(params[:parent_id])
@@ -28,7 +28,7 @@ module Bagpipes
         @message = @topic.messages.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "This message no longer exists"
-        redirect_to @topic
+        redirect_to topic_messages_path(@topic)
       end
 
       def create
@@ -36,7 +36,7 @@ module Bagpipes
 
         if @message.save
           flash[:notice] = "You have created a new message in \"#{@topic.title}\""
-          redirect_to @message.parent ? topic_message_path(@topic, @message.parent) : @topic
+          redirect_to @message.parent ? topic_message_path(@topic, @message.parent) : topic_messages_path(@topic)
         else
           flash.now[:form_error] = @message
           render :action => 'new'

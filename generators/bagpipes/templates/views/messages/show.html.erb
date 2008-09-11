@@ -1,6 +1,6 @@
 <h1>
   <span>
-    <%= link_to h(@topic.title), @topic %> &gt;
+    <%= link_to h(@topic.title), topic_messages_path(@topic) %> &gt;
     <% if @message.parent %>
       <%= link_to h(@message.parent.title), topic_message_path(@topic, @message.parent) %> &gt;
     <% end %>

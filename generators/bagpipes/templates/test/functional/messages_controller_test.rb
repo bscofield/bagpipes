@@ -8,6 +8,11 @@ class MessagesControllerTest < ActionController::TestCase
     @topic = Topic.create! :title => "Test Topic"
   end
   
+  test "index should render" do
+    get :index, :topic_id => @topic.id
+    assert_template 'index'
+  end
+  
   test "new should render" do
     get :new, :topic_id => @topic.id
     assert_template 'new'
@@ -21,7 +26,7 @@ class MessagesControllerTest < ActionController::TestCase
   
   test "show unknown message should redirect" do
     get :show, :topic_id => @topic.id, :id => 0
-    assert_redirected_to topic_path(@topic)
+    assert_redirected_to topic_messages_path(@topic)
   end
   
   test "show unknown message should set flash" do
@@ -57,7 +62,7 @@ class MessagesControllerTest < ActionController::TestCase
   
   test "good create should redirect" do
     post :create, {:topic_id => @topic.id}.merge(good_params)
-    assert_redirected_to topic_path(@topic)
+    assert_redirected_to topic_messages_path(@topic)
   end
   
   test "create reply should redirect elsewhere" do
