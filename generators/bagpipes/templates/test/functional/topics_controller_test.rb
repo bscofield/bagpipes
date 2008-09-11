@@ -12,22 +12,6 @@ class TopicsControllerTest < ActionController::TestCase
     assert_template 'index'
   end
   
-  test "show should render" do
-    t = Topic.create(:title => 'Test Topic')
-    get :show, :id => t.id
-    assert_template 'show'
-  end
-  
-  test "show unknown should redirect" do
-    get :show, :id => 1
-    assert_redirected_to topics_path
-  end
-  
-  test "show unknown should set flash" do
-    get :show, :id => 1
-    assert flash[:error]
-  end
-  
   test "new should render" do
     get :new
     assert_template 'new'

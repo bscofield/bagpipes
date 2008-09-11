@@ -14,13 +14,6 @@ module Bagpipes
         @topics = Topic.by_title.all
       end
 
-      def show
-        @topic = Topic.find(params[:id])
-      rescue ActiveRecord::RecordNotFound
-        flash[:error] = "That topic no longer exists"
-        redirect_to topics_path
-      end
-
       def new
         @topic = Topic.new
       end
